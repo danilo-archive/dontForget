@@ -1,5 +1,7 @@
 (function (window) {
-    
+	
+	//REGISTER NEW USER
+	
     document.getElementById('submit_tab').onclick = function() {
 
 	    var socket = io();
