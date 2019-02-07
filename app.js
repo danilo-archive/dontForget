@@ -6,11 +6,12 @@ var wav = require('wav');
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+const RASPBERRY_IP = 'http://192.168.43.219'; //TODO: UPDATE WITH RASPBERRY'S IP (works with tunneling)
+
 app.use(express.static(__dirname + '/public'));
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/public/index.html');
 });
-
 
 http.listen(3000, function () {
   console.log('listening on *:3000');
@@ -19,7 +20,7 @@ http.listen(3000, function () {
 //SOCKET.IO-STREAM TO PI FOR AUDIO
 var ss = require('socket.io-stream');
 var socketio_stream = ss.createStream();
-var socket_pi = require('socket.io-client').connect('http://192.168.43.219:5050');
+var socket_pi = require('socket.io-client').connect(RASPBERRY_IP + ':5050');
 
 
 
@@ -69,6 +70,7 @@ io.on('connection', function (socket) {
 });
 
 
+//MICROPHONE PROCESSING FUNCTIONALITY
 binaryServer = BinaryServer({ port: 9001 });
 
 binaryServer.on('connection', function (client) {
