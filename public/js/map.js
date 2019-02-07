@@ -1,23 +1,16 @@
 (function (window) {
 
+	//TODO: ADD TOKEN 
+	const MAPBOX_TOKEN = "";
+	const UPDATE_INTERVAL = 3500; //ms
+
 	document.getElementById('map_tab').onclick = function () {
-
-
-		/*var element = document.getElementsByTagName("ul"), index;
-
-		for (index = element.length - 1; index >= 0; index--) {
-			element[index].parentNode.removeChild(element[index]);
-		}
-		document.getElementsByClassName('list').outerHTML = ""*/
-
 
 		var position = null;
 		var socket = io();
-		const mapbox_token = "pk.eyJ1IjoiZGFuaWxvLWRlbGJ1c3NvIiwiYSI6ImNqb2FtMm5oZzAzdmozcGw3aGJ1c3JpbHoifQ.9bU3Ql7zJvo3VsEQidcMNg"
-
 		var mymap = L.map('mapid', { zoomControl: false, attributionControl: true }).setView([51.5130, -0.1162], 13);
 
-		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + mapbox_token, {
+		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + MAPBOX_TOKEN, {
 			attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
 			maxZoom: 18,
 			id: 'mapbox.streets',
@@ -31,11 +24,9 @@
 
 		socket.on("send_location", function (data) {
 			console.log("getting new location");
-			newlon = 51.428489
-			newlat = -0.571869
+			newlon = data.lon;
+			newlat = data.lat;
 		})
-
-	
 
 		window.setInterval(function () {
 			if (newlon != null && newlat != null) {
@@ -55,6 +46,6 @@
 			}
 
 			socket.emit('get_location')
-		}, 3500);
+		}, UPDATE_INTERVAL);
 	}
 })(this)
