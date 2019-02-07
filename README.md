@@ -1,5 +1,5 @@
 # dontForget [![](https://imgur.com/CxQR0Xd.png)](https://www.raspberrypi.org/)
-## Facial detection, voice commands, and text-to-speech helper. 
+### Facial detection, voice commands, and text-to-speech helper for people with memory loss.
 
 [![dontForget](https://imgur.com/fomWtCy.png)](https://devpost.com/software/don-t-forget-etz6mh)
 
